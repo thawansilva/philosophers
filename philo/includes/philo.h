@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:23:34 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/03 20:53:57 by thawan           ###   ########.fr       */
+/*   Updated: 2025/11/04 19:33:22 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <unistd.h>
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
+# define MAX_PHILO 200
+
 
 typedef struct s_philo
 {
