@@ -12,7 +12,8 @@ OBJS := $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 # Flags
 CC := clang
-CFLAGS := -Wall -Wextra -Werror -g2
+# Add gdwarf-4 due to compatibility problems in my personal pc
+CFLAGS := -Wall -Wextra -Werror -g2 -gdwarf-4
 CPPFLAGS := $(addprefix -I, $(INCDIR))
 
 # Useful variables
