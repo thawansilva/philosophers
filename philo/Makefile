@@ -5,7 +5,7 @@ SRCDIR := src
 OBJDIR := obj
 
 # Source files and Objects
-SRC := main.c utils_philo.c validate_input.c
+SRC := main.c init_table.c utils_philo.c validate_input.c
 
 SRC := $(SRC:%=$(SRCDIR)/%)
 OBJS := $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)

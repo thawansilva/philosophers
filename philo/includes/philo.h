@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:23:34 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/04 19:33:22 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/04 20:14:59 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ typedef struct s_table
 
 long	ft_atol(const char *nbr);
 void	ft_putstr_fd(char *s, int fd);
+
+// Init table
+void	init_table(t_table *table, t_philo *philos);
+void	init_forks(pthread_mutex_t	*forks, int num_of_philos);
+void	init_philos(t_table *table, t_philo *philos, pthread_mutex_t *forks,
+		char **argv);
 
 // Validation
 int		is_valid_args(int argc, char **argv);
