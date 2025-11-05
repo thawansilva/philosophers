@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:49:53 by thaperei          #+#    #+#             */
-/*   Updated: 2025/10/27 19:03:13 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/05 19:21:07 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	ft_putstr_fd(char *s, int fd)
 	int	i;
 
 	if (fd < 0)
+		return ;
+	if (s == NULL)
 		return ;
 	i = 0;
 	while (s[i])
