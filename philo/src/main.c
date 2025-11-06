@@ -6,13 +6,13 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:23:05 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/04 21:08:39 by thawan           ###   ########.fr       */
+/*   Updated: 2025/11/05 21:41:00 by thawan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	destroy_table(t_table *table, pthread_mutex_t *forks)
+void	destroy_table(char *str, t_table *table, pthread_mutex_t *forks)
 {
 	int	i;
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv)
 	init_table(&table, philos);
 	init_forks(forks, ft_atol(argv[1]));
 	init_philos(&table, philos, forks, argv);
-//	start_routine(&table, philos, forks);
-	destroy_table(&table, forks);
+	start_routine(&table, forks);
+	destroy_table(NULL, &table, forks);
 	return (0);
 }
