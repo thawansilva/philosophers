@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:23:34 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/04 21:39:02 by thawan           ###   ########.fr       */
+/*   Updated: 2025/11/05 21:52:46 by thawan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ void	init_table(t_table *table, t_philo *philos);
 void	init_forks(pthread_mutex_t	*forks, int num_of_philos);
 void	init_philos(t_table *table, t_philo *philos, pthread_mutex_t *forks,
 		char **argv);
+
+// routine functions
+void	start_routine(t_table *table, pthread_mutex_t *forks);
+
+// Waiter routine
+void	*waiter_routine(void *data);
 
 // Validation
 int		is_valid_args(int argc, char **argv);

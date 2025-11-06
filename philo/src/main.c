@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:23:05 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/05 21:41:00 by thawan           ###   ########.fr       */
+/*   Updated: 2025/11/05 21:54:47 by thawan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	destroy_table(char *str, t_table *table, pthread_mutex_t *forks)
 {
 	int	i;
 
+	if (str != NULL)
+		ft_putstr_fd(str, 2);
 	pthread_mutex_destroy(&table->write_lock);
 	pthread_mutex_destroy(&table->dead_lock);
 	pthread_mutex_destroy(&table->meal_lock);

@@ -6,13 +6,13 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 19:09:12 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/05 20:17:04 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/05 22:19:52 by thawan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*routine(void *data)
+static void	*routine(void *data)
 {
 	t_philo	*philo;
 
@@ -26,38 +26,39 @@ void	*routine(void *data)
 //	}
 }
 
-void	*waiter_routine(void *data)
-{
-	t_table	*philo;
-
-	t_table = (t_table *)data;
-	printf("waiter\n");
-	// while !has_death && !are_philos_satisfied
-	// if time_to_die > last_meal	
-	//		change dead_flag to 1
-	// if are_philos_satisfied
-	// 		change dead_flag to 1
-}
-
-void	start_routine(t_table *table, pthread_mutex_t forks)
+// refactor the function and develop routines
+int	start_routine(t_table *table, pthread_mutex_t *forks)
 {
 	int		i;
 	t_philo	waiter;
 
-	if (pthread_create(&th[i].thread, NULL, &waiter_routine, table) != 0)
-		destroy_table("Error: Create waiter thread", table, forks);
-	i = 0;
-	while (i < table->philos[0].num_of_philos)
+	if (pthread_create(&waiter.thread, NULL, &waiter_routine, table) != 0)
 	{
-		if (pthread_create(&th[i].thread, NULL, &routine, table->philos[i]) != 0)
-			destroy_table("Error: Create philo thread", table, forks);
-	}
-	if (pthread_join(&th[i].thread, NULL) != 0)
 		destroy_table("Error: Destroy waiter thread", table, forks);
+		return (0);
+	}
 	i = 0;
 	while (i < table->philos[0].num_of_philos)
 	{
-		if (pthread_join(&th[i].thread, NULL) != 0)
+		if (pthread_create(&table->philos[i].thread, NULL, &routine, table->philos[i]) != 0)
+		{
 			destroy_table("Error: Destroy philo thread", table, forks);
+			return (0);
+		}
 	}
+	if (pthread_join(&waiter.thread, NULL) != 0)
+	{
+		destroy_table("Error: Destroy waiter thread", table, forks);
+		return (0);
+	}
+	i = 0;
+	while (i < table->philos[0].num_of_philos)
+	{
+		if (pthread_join(&table->philos[i].thread, NULL) != 0)
+		{
+			destroy_table("Error: Destroy philo thread", table, forks);
+			return (0);
+		}
+	}
+	return (1);
 }
