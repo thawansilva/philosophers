@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:23:34 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/04 20:14:59 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/04 21:39:02 by thawan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_philo
 	int				meals_eaten;
 	int				num_of_philos;
 	int				amount_of_meals;
-	int				*dead;
+	int				*has_death;
 	size_t			start_meal;
 	size_t			last_meal;
 	size_t			time_to_die;

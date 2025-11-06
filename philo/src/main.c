@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:23:05 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/04 20:12:44 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/04 21:08:39 by thawan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv)
 	init_table(&table, philos);
 	init_forks(forks, ft_atol(argv[1]));
 	init_philos(&table, philos, forks, argv);
-	start_routine(&table, philos, forks);
+//	start_routine(&table, philos, forks);
 	destroy_table(&table, forks);
 	return (0);
 }
