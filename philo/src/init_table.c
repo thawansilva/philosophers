@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 20:12:33 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/04 21:57:28 by thawan           ###   ########.fr       */
+/*   Updated: 2025/11/06 21:02:34 by thawan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_philos(t_table *table, t_philo *philos, pthread_mutex_t *forks,
 		philos[i].num_of_philos = num_of_philos;
 		philos[i].has_death = &table->dead_flag;
 		philos[i].is_eating = 0;
+		philos[i].start_time = get_current_time();
 		philos[i].meals_eaten = 0;
 		philos[i].write_lock = &table->write_lock;
 		philos[i].dead_lock = &table->dead_lock;
