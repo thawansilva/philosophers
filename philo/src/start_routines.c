@@ -6,17 +6,16 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 19:09:12 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/06 20:26:25 by thawan           ###   ########.fr       */
+/*   Updated: 2025/11/07 22:03:17 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// refactor the function and develop routines
 int	start_routines(t_table *table, pthread_mutex_t *forks)
 {
-	int		i;
 	t_philo	waiter;
+	int		i;
 
 	if (pthread_create(&waiter.thread, NULL, &waiter_routine, table) != 0)
 	{

@@ -6,7 +6,7 @@ OBJDIR := obj
 
 # Source files and Objects
 SRC := main.c init_table.c utils_philo.c validate_input.c start_routines.c\
-	   	philo_routine.c waiter_routine.c
+	   	philo_routine.c waiter_routine.c\
 
 SRC := $(SRC:%=$(SRCDIR)/%)
 OBJS := $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
