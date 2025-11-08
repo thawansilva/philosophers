@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:49:53 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/06 21:16:04 by thawan           ###   ########.fr       */
+/*   Updated: 2025/11/08 10:50:18 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ft_putstr_fd(char *s, int fd)
 size_t	get_current_time(void)
 {
 	struct timeval	time;
+
 	if (gettimeofday(&time, NULL) < 0)
 		ft_putstr_fd("Error: gettimeofday()\n", 2);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);

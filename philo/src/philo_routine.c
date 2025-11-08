@@ -6,7 +6,7 @@
 /*   By: thawan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 20:11:27 by thawan            #+#    #+#             */
-/*   Updated: 2025/11/08 08:56:36 by thawan           ###   ########.fr       */
+/*   Updated: 2025/11/08 10:56:22 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,26 @@ void	dream(t_philo *philo)
 
 void	eat(t_philo *philo)
 {
-	// Pega um garfo (lock)
-	// pega outro garfo (lock)
-	pthread_mutex_lock(philo->l_fork);
-	print_message("has taken a fork", philo);
 	pthread_mutex_lock(philo->r_fork);
 	print_message("has taken a fork", philo);
-	// lock meal
+	pthread_mutex_lock(philo->l_fork);
+	print_message("has taken a fork", philo);
+	philo->is_eating = 1;
 	print_message("is eating", philo);
 	pthread_mutex_lock(philo->meal_lock);
 	philo->last_meal = get_current_time();
-	// increase meal eaten
-	philo->amount_of_meals++;
-	// unlock meal
+	philo->meals_eaten++;
 	pthread_mutex_unlock(philo->meal_lock);
-	// printa mensagem de meal
 	ft_usleep(philo->time_to_eat);
-	// stop for time_to_eat time
-	// unlock forks
-	pthread_mutex_unlock(philo->l_fork);
+	philo->is_eating = 0;
 	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(philo->l_fork);
 }
 
-int	is_dead(t_philo *philo)
+int	is_death(t_philo *philo)
 {
 	pthread_mutex_lock(philo->dead_lock);
-	if (philo->has_death)
+	if (*(philo->has_death) == 1 && !philo->is_eating)
 	{
 		pthread_mutex_unlock(philo->dead_lock);
 		return (1);
@@ -66,13 +60,11 @@ void	*philo_routine(void *data)
 	philo = (t_philo *)data;
 	if (philo->id % 2 == 0)
 		ft_usleep(1);
-	printf("philo %d\n", philo->id);
-	while (!is_dead(philo))
+	while (!is_death(philo))
 	{
 		eat(philo);
 		dream(philo);
 		think(philo);
 	}
-	return (void *)0;
+	return ((void *)0);
 }
-

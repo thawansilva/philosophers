@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:23:34 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/07 19:58:06 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/08 11:28:32 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		start_routines(t_table *table, pthread_mutex_t *forks);
 void	*philo_routine(void *data);
 void	*waiter_routine(void *data);
 void	print_message(char *str, t_philo *philo);
+int		is_death(t_philo *philo);
 
 // Free Table
 void	destroy_table(char *str, t_table *table, pthread_mutex_t *forks);

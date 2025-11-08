@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:23:05 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/06 20:12:49 by thawan           ###   ########.fr       */
+/*   Updated: 2025/11/08 11:17:00 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int argc, char **argv)
 		usleep(ft_atol(argv[2]) * 1000);
 		ft_putstr_fd(argv[2], 1);
 		ft_putstr_fd(" 1 died\n", 1);
+		return (0);
 	}
 	init_table(&table, philos);
 	init_forks(forks, ft_atol(argv[1]));

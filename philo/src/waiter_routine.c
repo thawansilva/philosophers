@@ -6,7 +6,7 @@
 /*   By: thawan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 21:44:46 by thawan            #+#    #+#             */
-/*   Updated: 2025/11/08 09:10:44 by thawan           ###   ########.fr       */
+/*   Updated: 2025/11/08 11:28:03 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	print_message(char *str, t_philo *philo)
 {
-	int	current_time;
+	size_t	current_time;
 
 	pthread_mutex_lock(philo->write_lock);
 	current_time = get_current_time() - philo->start_time;
-	if (!philo->has_death)
-		printf("%d %d %s\n", current_time, philo->id, str);
+	if (!is_death(philo))
+		printf("%zu %d %s\n", current_time, philo->id, str);
 	pthread_mutex_unlock(philo->write_lock);
 }
 
@@ -42,14 +42,15 @@ int	are_philos_alive(t_philo *philos)
 	i = 0;
 	while (i < philos[0].num_of_philos)
 	{
-		if (is_philo_alive(philos[i]))
+		if (!is_philo_alive(&philos[i]))
 		{
-			print_message("dead", philos[i]);
+			print_message("dead", &philos[i]);
 			pthread_mutex_lock(philos[i].dead_lock);
-			table->has_death = 1;
+			*(philos[i].has_death) = 1;
 			pthread_mutex_unlock(philos[i].dead_lock);
 			return (0);
 		}
+		i++;
 	}
 	return (1);
 }
@@ -72,6 +73,5 @@ void	*waiter_routine(void *data)
 //			change dead_flag to 1
 //	 if are_philos_satisfied
 //	 		change dead_flag to 1
-	return (void *)0;
+	return ((void *)0);
 }
-
