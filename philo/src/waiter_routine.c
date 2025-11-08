@@ -6,7 +6,7 @@
 /*   By: thawan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 21:44:46 by thawan            #+#    #+#             */
-/*   Updated: 2025/11/07 22:18:38 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/08 09:10:44 by thawan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,31 @@ void	print_message(char *str, t_philo *philo)
 	pthread_mutex_unlock(philo->write_lock);
 }
 
-int	are_philos_alive(t_table *table)
+int	is_philo_alive(t_philo *philo)
+{
+	pthread_mutex_lock(philo->meal_lock);
+	if (get_current_time() - philo->last_meal > philo->time_to_die)
+	{
+		pthread_mutex_unlock(philo->meal_lock);
+		return (0);
+	}
+	pthread_mutex_unlock(philo->meal_lock);
+	return (1);
+}
+
+int	are_philos_alive(t_philo *philos)
 {
 	int	i;
-	size_t	last_meal;
 
 	i = 0;
-	while (i < table->philos[0].num_of_philos)
+	while (i < philos[0].num_of_philos)
 	{
-		last_meal = table->philos[i].last_meal;
-		if (get_current_time() - last_meal > table->philos[i].time_to_die)
+		if (is_philo_alive(philos[i]))
 		{
-			print_message("dead", &table->philos[i]);
-			pthread_mutex_lock(&table->dead_lock);
+			print_message("dead", philos[i]);
+			pthread_mutex_lock(philos[i].dead_lock);
 			table->has_death = 1;
-			pthread_mutex_unlock(&table->dead_lock);
+			pthread_mutex_unlock(philos[i].dead_lock);
 			return (0);
 		}
 	}
@@ -46,13 +56,13 @@ int	are_philos_alive(t_table *table)
 
 void	*waiter_routine(void *data)
 {
-	t_table	*table;
+	t_philo	*philos;
 
-	table = (t_table *)data;
+	philos = (t_philo *)data;
 	printf("waiter\n");
 	while (1)
 	{
-		if (!are_philos_alive(table))
+		if (!are_philos_alive(philos))
 			break ;
 //		if (are_philos_satisfied(table))
 //			break ;

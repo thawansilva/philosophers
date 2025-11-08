@@ -6,7 +6,7 @@
 /*   By: thawan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 20:11:27 by thawan            #+#    #+#             */
-/*   Updated: 2025/11/07 21:52:49 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/08 08:56:36 by thawan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(philo->r_fork);
 	print_message("has taken a fork", philo);
 	// lock meal
+	print_message("is eating", philo);
 	pthread_mutex_lock(philo->meal_lock);
 	philo->last_meal = get_current_time();
 	// increase meal eaten
@@ -39,7 +40,7 @@ void	eat(t_philo *philo)
 	// unlock meal
 	pthread_mutex_unlock(philo->meal_lock);
 	// printa mensagem de meal
-	ft_usleep(philo->time_to_sleep);
+	ft_usleep(philo->time_to_eat);
 	// stop for time_to_eat time
 	// unlock forks
 	pthread_mutex_unlock(philo->l_fork);
@@ -63,6 +64,8 @@ void	*philo_routine(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
+	if (philo->id % 2 == 0)
+		ft_usleep(1);
 	printf("philo %d\n", philo->id);
 	while (!is_dead(philo))
 	{

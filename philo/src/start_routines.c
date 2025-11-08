@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 19:09:12 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/07 22:03:17 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/08 08:54:24 by thawan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	start_routines(t_table *table, pthread_mutex_t *forks)
 	t_philo	waiter;
 	int		i;
 
-	if (pthread_create(&waiter.thread, NULL, &waiter_routine, table) != 0)
+	if (pthread_create(&waiter.thread, NULL, &waiter_routine, &waiter) != 0)
 	{
 		destroy_table("Error: Create waiter thread", table, forks);
 		return (0);
