@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:42:58 by thaperei          #+#    #+#             */
-/*   Updated: 2025/10/30 17:13:24 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/09 14:46:07 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	is_valid_amount_philo(char *philo)
 {
 	int	i;
 
-	if (!(ft_atol(philo) > 0 && ft_atol(philo) < 200))
+	if (!(ft_atol(philo) > 0 && ft_atol(philo) <= 200))
 	{
 		ft_putstr_fd("Invalid number of philosophers\n", 2);
 		return (0);

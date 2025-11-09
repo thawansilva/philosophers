@@ -6,7 +6,7 @@
 /*   By: thawan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 21:44:46 by thawan            #+#    #+#             */
-/*   Updated: 2025/11/08 11:28:03 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/09 16:30:01 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	print_message(char *str, t_philo *philo)
 int	is_philo_alive(t_philo *philo)
 {
 	pthread_mutex_lock(philo->meal_lock);
-	if (get_current_time() - philo->last_meal > philo->time_to_die)
+	if (get_current_time() - philo->last_meal >= philo->time_to_die
+		&& !philo->is_eating)
 	{
 		pthread_mutex_unlock(philo->meal_lock);
 		return (0);
@@ -45,9 +46,9 @@ int	are_philos_alive(t_philo *philos)
 		if (!is_philo_alive(&philos[i]))
 		{
 			print_message("dead", &philos[i]);
-			pthread_mutex_lock(philos[i].dead_lock);
-			*(philos[i].has_death) = 1;
-			pthread_mutex_unlock(philos[i].dead_lock);
+			pthread_mutex_lock(philos[0].dead_lock);
+			*philos->has_death = 1;
+			pthread_mutex_unlock(philos[0].dead_lock);
 			return (0);
 		}
 		i++;
@@ -55,23 +56,42 @@ int	are_philos_alive(t_philo *philos)
 	return (1);
 }
 
+int	are_philos_satisfied(t_philo *philos)
+{
+	int	i;
+	int	are_satisfied;
+
+	i = 0;
+	are_satisfied = 1;
+	if (philos[0].amount_of_meals == -1)
+		return (0);
+	while (i < philos[i].num_of_philos)
+	{
+		pthread_mutex_lock(philos[i].meal_lock);
+		if (philos[i].meals_eaten < philos[i].amount_of_meals)
+			are_satisfied = 0;
+		pthread_mutex_unlock(philos[i].meal_lock);
+		i++;
+	}
+	if (are_satisfied)
+	{
+		pthread_mutex_lock(philos[0].dead_lock);
+		*philos->has_death = 1;
+		pthread_mutex_unlock(philos[0].dead_lock);
+		return (1);
+	}
+	return (are_satisfied);
+}
+
 void	*waiter_routine(void *data)
 {
 	t_philo	*philos;
 
 	philos = (t_philo *)data;
-	printf("waiter\n");
 	while (1)
 	{
-		if (!are_philos_alive(philos))
+		if (!are_philos_alive(philos) || are_philos_satisfied(philos))
 			break ;
-//		if (are_philos_satisfied(table))
-//			break ;
 	}
-//	 while !has_death && !are_philos_satisfied
-//	 if time_to_die > last_meal	
-//			change dead_flag to 1
-//	 if are_philos_satisfied
-//	 		change dead_flag to 1
-	return ((void *)0);
+	return (philos);
 }

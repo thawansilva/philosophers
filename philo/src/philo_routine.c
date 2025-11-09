@@ -6,7 +6,7 @@
 /*   By: thawan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 20:11:27 by thawan            #+#    #+#             */
-/*   Updated: 2025/11/08 10:56:22 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/09 15:06:12 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ void	eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->r_fork);
 	print_message("has taken a fork", philo);
+	if (philo->num_of_philos == 1)
+	{
+		ft_usleep(philo->time_to_die);
+		print_message("died", philo);
+		*(philo->has_death) = 1;
+		return ;
+	}
 	pthread_mutex_lock(philo->l_fork);
 	print_message("has taken a fork", philo);
 	philo->is_eating = 1;
@@ -44,7 +51,7 @@ void	eat(t_philo *philo)
 int	is_death(t_philo *philo)
 {
 	pthread_mutex_lock(philo->dead_lock);
-	if (*(philo->has_death) == 1 && !philo->is_eating)
+	if (*(philo->has_death) == 1)
 	{
 		pthread_mutex_unlock(philo->dead_lock);
 		return (1);
@@ -66,5 +73,5 @@ void	*philo_routine(void *data)
 		dream(philo);
 		think(philo);
 	}
-	return ((void *)0);
+	return (philo);
 }

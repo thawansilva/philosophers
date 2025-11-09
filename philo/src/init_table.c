@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 20:12:33 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/08 11:24:05 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/09 16:39:33 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	init_input_argv(t_philo *philo, char **argv)
 {
 	philo->time_to_die = ft_atol(argv[2]);
-	philo->time_to_sleep = ft_atol(argv[3]);
-	philo->time_to_eat = ft_atol(argv[4]);
+	philo->time_to_eat = ft_atol(argv[3]);
+	philo->time_to_sleep = ft_atol(argv[4]);
 	if (argv[5])
 		philo->amount_of_meals = ft_atol(argv[5]);
 	else

@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:23:34 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/08 11:28:32 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/09 16:12:43 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ typedef struct s_table
 void	init_table(t_table *table, t_philo *philos);
 void	init_forks(pthread_mutex_t	*forks, int num_of_philos);
 void	init_philos(t_table *table, t_philo *philos, pthread_mutex_t *forks,
-		char **argv);
+			char **argv);
 
 // routine functions
-int		start_routines(t_table *table, pthread_mutex_t *forks);
+int		start_routines(t_table *table);
 void	*philo_routine(void *data);
 void	*waiter_routine(void *data);
 void	print_message(char *str, t_philo *philo);

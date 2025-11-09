@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:23:05 by thaperei          #+#    #+#             */
-/*   Updated: 2025/11/08 11:17:00 by thaperei         ###   ########.fr       */
+/*   Updated: 2025/11/09 15:17:13 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,14 @@ int	main(int argc, char **argv)
 
 	if (!is_valid_args(argc, argv))
 		return (1);
-	if (ft_atol(argv[1]) == 1)
-	{
-		ft_putstr_fd("0 1 has taken a fork\n", 1);
-		usleep(ft_atol(argv[2]) * 1000);
-		ft_putstr_fd(argv[2], 1);
-		ft_putstr_fd(" 1 died\n", 1);
-		return (0);
-	}
 	init_table(&table, philos);
 	init_forks(forks, ft_atol(argv[1]));
 	init_philos(&table, philos, forks, argv);
-	start_routines(&table, forks);
+	if (start_routines(&table) != 1)
+	{
+		destroy_table("Error on creating threads", &table, forks);
+		return (0);
+	}
 	destroy_table(NULL, &table, forks);
 	return (0);
 }
