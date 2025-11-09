@@ -42,7 +42,7 @@ clean:
 	@$(RM) $(MANDATORY_MARK)
 
 fclean: clean
-	$(RM) $(NAME) $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 
